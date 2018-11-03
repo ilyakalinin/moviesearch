@@ -123,7 +123,7 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if (indexPath.item == results.count - Int(resultsLimit/2) && !isFetchingMoreResults && total <= page) {
+        if (indexPath.item == results.count - Int(resultsLimit/2) && !isFetchingMoreResults && total > page) {
             isFetchingMoreResults = true
             
             if let text = searchController.searchBar.text, text.count > 0 {
