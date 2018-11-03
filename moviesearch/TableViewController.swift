@@ -16,6 +16,7 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
     var isFetchingMoreResults = false
     var page = 1
     var total = 1
+    var searchText: String?
     var selection: IndexPath?
     
     let resultsLimit = 20
@@ -49,8 +50,14 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
         self.tableView.backgroundView = nil
         
         if let text = searchController.searchBar.text, text.count > 0 {
+            if searchText == text {
+                return
+            }
+            
+            searchText = text
             searchMovies(with: text)
         } else {
+            searchText = nil
             results = [Movie]()
             page = 1
             tableView.reloadData()
@@ -64,7 +71,6 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
                 self?.updateTableView(with: movies)
             }
         }
-        
     }
     
     func updateTableView(with results : [Movie]?) {
