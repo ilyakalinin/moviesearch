@@ -64,7 +64,7 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
         }
     }
     
-    func searchMovies(with query: String) {        
+    func searchMovies(with query: String) {
         SearchService.search(query: query) { [weak self] (movies, total, error) in
             self?.total = total
             if (error == nil) {
@@ -78,6 +78,7 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
             self.results = results
             DispatchQueue.main.async { [weak self] () -> Void in
                 self?.tableView.reloadData()
+                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 self?.page = 1
                 self?.cachedImageData = [URL : Data]()
             }
@@ -159,14 +160,6 @@ class TableViewController: UITableViewController, UISearchControllerDelegate, UI
     func updateSearchResults(for searchController: UISearchController) {
         triggerSearchTimer.invalidate()
         triggerSearchTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(triggerFetch), userInfo: nil, repeats: false)
-    }
-    
-    // MARK: - Scroll
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if (searchController.searchBar.isFirstResponder) {
-            searchController.searchBar.resignFirstResponder()
-        }
     }
 
     // MARK: - Navigation
