@@ -15,7 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Fetch basic configuration
+//        ConfigurationService.updateConfiguration { (error) in
+//            if let error = error {
+//                print("Failed to fetch configuration: \(error.localizedDescription)")
+//            }
+//        }
         return true
     }
 
